@@ -1,11 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import Navbar from './components/Navbar';
 import AnalyzeView from './pages/AnalyzeView';
 import ResultView from './pages/ResultView';
 import HistoryView from './pages/HistoryView';
 import ModelPerformanceView from './pages/ModelPerformanceView';
 import DocsView from './pages/DocsView';
-import { Shield, HardDrive, Terminal } from 'lucide-react';
+import { Shield, HardDrive, Terminal, AlertTriangle, RefreshCw } from 'lucide-react';
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="max-w-2xl mx-auto p-8 rounded-2xl bg-red-950/30 border border-red-900/50 text-center space-y-4">
+          <div className="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 mx-auto flex items-center justify-center">
+            <AlertTriangle className="w-6 h-6" />
+          </div>
+          <h2 className="text-lg font-bold text-white font-['Outfit']">Component Error Detected</h2>
+          <p className="text-xs text-red-300 font-mono bg-red-950/60 p-3 rounded-lg border border-red-900/40 text-left overflow-x-auto">
+            {this.state.error?.message || String(this.state.error)}
+          </p>
+          <button
+            onClick={() => {
+              this.setState({ hasError: false, error: null });
+              window.location.reload();
+            }}
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold inline-flex items-center gap-2 border border-slate-700"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-blue-400" />
+            <span>Reload Application</span>
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('analyze');
@@ -33,25 +75,27 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'analyze' && (
-          <AnalyzeView onAnalysisComplete={handleAnalysisComplete} />
-        )}
+        <ErrorBoundary>
+          {activeTab === 'analyze' && (
+            <AnalyzeView onAnalysisComplete={handleAnalysisComplete} />
+          )}
 
-        {activeTab === 'result' && (
-          <ResultView analysisResult={currentResult} onReset={handleReset} />
-        )}
+          {activeTab === 'result' && (
+            <ResultView analysisResult={currentResult} onReset={handleReset} />
+          )}
 
-        {activeTab === 'history' && (
-          <HistoryView onSelectInvestigation={handleSelectInvestigation} />
-        )}
+          {activeTab === 'history' && (
+            <HistoryView onSelectInvestigation={handleSelectInvestigation} />
+          )}
 
-        {activeTab === 'performance' && (
-          <ModelPerformanceView />
-        )}
+          {activeTab === 'performance' && (
+            <ModelPerformanceView />
+          )}
 
-        {activeTab === 'docs' && (
-          <DocsView />
-        )}
+          {activeTab === 'docs' && (
+            <DocsView />
+          )}
+        </ErrorBoundary>
       </main>
 
       {/* Footer */}
