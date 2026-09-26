@@ -36,6 +36,10 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
 def create_application() -> FastAPI:
     """Application factory for FastAPI instance."""
+    # Ensure tables are initialized
+    from app.core.database import init_db
+    init_db()
+
     app = FastAPI(
         title=settings.PROJECT_NAME,
         version=settings.VERSION,

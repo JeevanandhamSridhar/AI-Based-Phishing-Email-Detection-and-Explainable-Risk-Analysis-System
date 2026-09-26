@@ -152,10 +152,10 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Add boundary tests for risk categories: 0, 24, 25, 49, 50, 74, 75, 100.
 
 ### Phase 17: Forensic Evidence Engine & Comprehensive REST API
-- [ ] Implement `backend/app/api/endpoints/analyze.py` for full email analysis.
-- [ ] Implement `backend/app/api/endpoints/history.py` for paginated analysis lookup.
-- [ ] Implement `backend/app/api/endpoints/models.py` for metrics, authorship, and adversarial telemetry.
-- [ ] Write integration tests for all API endpoints using FastAPI `TestClient`.
+- [x] Implement `backend/app/api/endpoints/analyze.py` for full email analysis.
+- [x] Implement `backend/app/api/endpoints/history.py` for paginated analysis lookup.
+- [x] Implement `backend/app/api/endpoints/models.py` for metrics, authorship, and adversarial telemetry.
+- [x] Write integration tests for all API endpoints using FastAPI `TestClient`.
 
 ### Phase 18: React Frontend Dashboard & Analysis Interfaces
 - [ ] Initialize React + Vite application under `frontend/`.
