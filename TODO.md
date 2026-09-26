@@ -40,12 +40,12 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests for database schema, queries, and record storage.
 
 ### Phase 4: Static Email Parser
-- [ ] Implement `backend/app/utils/email_parser.py` parsing `.eml`, `.txt`, and raw string formats.
-- [ ] Extract RFC-822 headers: From, To, Subject, Date, Return-Path, Reply-To, Message-ID, Received lines.
-- [ ] Extract body (plain text, sanitized HTML stripped of scripts).
-- [ ] Extract raw URL strings from plain text and HTML anchor tags.
-- [ ] Extract attachment metadata: filename, extension, MIME type, size in bytes, SHA-256 hash.
-- [ ] Write unit tests covering diverse MIME structures (multipart, base64 encoded, plain text).
+- [x] Implement `backend/app/utils/email_parser.py` parsing `.eml`, `.txt`, and raw string formats.
+- [x] Extract RFC-822 headers: From, To, Subject, Date, Return-Path, Reply-To, Message-ID, Received lines.
+- [x] Extract body (plain text, sanitized HTML stripped of scripts).
+- [x] Extract raw URL strings from plain text and HTML anchor tags.
+- [x] Extract attachment metadata: filename, extension, MIME type, size in bytes, SHA-256 hash.
+- [x] Write unit tests covering diverse MIME structures (multipart, base64 encoded, plain text).
 
 ### Phase 5: Header & Authentication Analyzer
 - [ ] Implement `backend/app/analyzers/header_analyzer.py`.
