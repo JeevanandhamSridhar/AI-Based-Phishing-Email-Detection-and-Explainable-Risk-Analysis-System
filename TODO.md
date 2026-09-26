@@ -110,11 +110,11 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Verify zero fabrication of metrics.
 
 ### Phase 13: Explainable AI Layer (SHAP & LIME)
-- [ ] Implement `backend/app/explainability/explainer.py`.
-- [ ] Integrate SHAP `LinearExplainer` for token attribution.
-- [ ] Integrate LIME `LimeTextExplainer` as cross-validation XAI.
-- [ ] Synthesize natural language explanation string from top positive/negative feature attributions.
-- [ ] Write unit tests for explanation generation and fallback handlers.
+- [x] Implement `backend/app/explainability/explainer.py`.
+- [x] Integrate SHAP `LinearExplainer` for token attribution.
+- [x] Integrate LIME `LimeTextExplainer` as cross-validation XAI.
+- [x] Synthesize natural language explanation string from top positive/negative feature attributions.
+- [x] Write unit tests for explanation generation and fallback handlers.
 
 ### Phase 14: Module A — AI-Generated Phishing Indicator
 - [ ] Implement `backend/app/authorship/stylometry.py` extracting linguistic and stylometric features:
