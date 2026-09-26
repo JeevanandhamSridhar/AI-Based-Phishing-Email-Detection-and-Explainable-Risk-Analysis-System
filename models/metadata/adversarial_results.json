@@ -1,0 +1,169 @@
+{
+  "total_cases_tested": 10,
+  "ml_evasions_count": 1,
+  "ml_retained_count": 9,
+  "ml_evasion_rate_pct": 10.0,
+  "mean_original_proba": 0.8611,
+  "mean_perturbed_proba": 0.6577,
+  "mean_proba_drop": 0.2034,
+  "case_results": [
+    {
+      "id": "adv_case_01",
+      "name": "PayPal Suspension to Routine Synchronization",
+      "removed_triggers": [
+        "urgent",
+        "suspended",
+        "immediate",
+        "unauthorized",
+        "verify"
+      ],
+      "original_text": "Urgent: Your PayPal account has been suspended due to unauthorized access. Immediate action required! Click here to verify your credentials within 24 hours: http://paypal.com.account-update.xyz/login",
+      "perturbed_text": "General corporate memo: Standard departmental documentation has been indexed for reference. You may review the architecture guidelines on our intranet portal: http://paypal.com.account-update.xyz/login",
+      "original_ml_proba": 0.9203,
+      "perturbed_ml_proba": 0.7072,
+      "evaded_ml": false,
+      "proba_drop": 0.2131
+    },
+    {
+      "id": "adv_case_02",
+      "name": "Office 365 Password Expiration to IT Directory Rollover",
+      "removed_triggers": [
+        "action required",
+        "expires today",
+        "unverified",
+        "disconnected"
+      ],
+      "original_text": "Action Required: Your Office 365 password expires today! Unverified sessions will be disconnected at midnight. Re-authenticate here: http://192.168.1.185/office365/keep-password.php",
+      "perturbed_text": "Directory Services Update: Annual directory maintenance is underway for organizational users. You may review your current authentication parameters on the local node: http://192.168.1.185/office365/keep-password.php",
+      "original_ml_proba": 0.7709,
+      "perturbed_ml_proba": 0.7582,
+      "evaded_ml": false,
+      "proba_drop": 0.0127
+    },
+    {
+      "id": "adv_case_03",
+      "name": "Invoice Past Due to Accounting Overview",
+      "removed_triggers": [
+        "urgent",
+        "past due",
+        "legal action",
+        "immediate"
+      ],
+      "original_text": "Overdue Payment Notice: Your account is past due. Failure to settle immediately will trigger legal action. Access invoice statement: http://portal-auth.top/invoice",
+      "perturbed_text": "Meeting agenda for Friday: The engineering design review will begin at 2 PM. Please check the meeting notes beforehand: http://portal-auth.top/invoice",
+      "original_ml_proba": 0.7084,
+      "perturbed_ml_proba": 0.2331,
+      "evaded_ml": true,
+      "proba_drop": 0.4753
+    },
+    {
+      "id": "adv_case_04",
+      "name": "Banking Security Alert to Account Preferences",
+      "removed_triggers": [
+        "security alert",
+        "suspicious login",
+        "confirm password",
+        "locked"
+      ],
+      "original_text": "Security Alert: Suspicious login detected. Your credit line has been locked. Confirm password and billing info here: http://secure-banking-portal.buzz/confirm",
+      "perturbed_text": "Client Services Notification: A session was logged from an alternate workstation. You may inspect your recent access logs at: http://secure-banking-portal.buzz/confirm",
+      "original_ml_proba": 0.9331,
+      "perturbed_ml_proba": 0.8172,
+      "evaded_ml": false,
+      "proba_drop": 0.1159
+    },
+    {
+      "id": "adv_case_05",
+      "name": "Email Storage Quota to Mailbox Indexing",
+      "removed_triggers": [
+        "final warning",
+        "blocked",
+        "validate credentials"
+      ],
+      "original_text": "Final Warning: Your email storage is 99% full. Your inbox will be blocked unless you validate credentials here: http://cloud-auth.work/verify",
+      "perturbed_text": "Mailbox Maintenance: Periodic indexing of user mailbox archives is scheduled for completion. Adjust your data retention preferences: http://cloud-auth.work/verify",
+      "original_ml_proba": 0.893,
+      "perturbed_ml_proba": 0.6561,
+      "evaded_ml": false,
+      "proba_drop": 0.2369
+    },
+    {
+      "id": "adv_case_06",
+      "name": "Tax Refund Payout to Agency Form Update",
+      "removed_triggers": [
+        "unclaimed",
+        "tax payout",
+        "within 48 hours",
+        "banking details"
+      ],
+      "original_text": "Tax refund notification: You are eligible for an unclaimed tax payout of $2,450. Submit your banking details at http://irs-refund.buzz within 48 hours.",
+      "perturbed_text": "Agency Filing Reference: The annual fiscal calculation schedule has been issued. Review your preliminary summary document at: http://irs-refund.buzz",
+      "original_ml_proba": 0.8962,
+      "perturbed_ml_proba": 0.5802,
+      "evaded_ml": false,
+      "proba_drop": 0.316
+    },
+    {
+      "id": "adv_case_07",
+      "name": "Apple ID Lockout to Cloud Provisioning",
+      "removed_triggers": [
+        "immediate",
+        "account locked",
+        "verify identity"
+      ],
+      "original_text": "Immediate action: Your Apple ID is locked due to multiple failed passwords. Verify identity now at: http://appleid.apple.com.ssl-verify.work/signin",
+      "perturbed_text": "Cloud Services Notice: Multi-device provisioning status is ready for review. Consult the device dashboard at: http://appleid.apple.com.ssl-verify.work/signin",
+      "original_ml_proba": 0.9171,
+      "perturbed_ml_proba": 0.7526,
+      "evaded_ml": false,
+      "proba_drop": 0.1645
+    },
+    {
+      "id": "adv_case_08",
+      "name": "Wire Transfer Authorization to Treasury Log",
+      "removed_triggers": [
+        "urgent",
+        "unauthorized",
+        "cancel immediately",
+        "pending payment"
+      ],
+      "original_text": "Urgent: Unauthorized outbound wire transfer pending. If you did not authorize this, cancel immediately: http://portal-auth.top/gate",
+      "perturbed_text": "Treasury Operations: An electronic funds disbursement notice has been registered. You may observe transaction details at: http://portal-auth.top/gate",
+      "original_ml_proba": 0.8433,
+      "perturbed_ml_proba": 0.7326,
+      "evaded_ml": false,
+      "proba_drop": 0.1107
+    },
+    {
+      "id": "adv_case_09",
+      "name": "HR Direct Deposit Update to Employee Portal Record",
+      "removed_triggers": [
+        "mandatory",
+        "immediate",
+        "payroll",
+        "login"
+      ],
+      "original_text": "Mandatory payroll update: Update your direct deposit credentials immediately. Login to HR portal: http://security-update.buzz/auth",
+      "perturbed_text": "Human Resources: Routine personnel information verification period is now active. Employee profile parameters are accessible at: http://security-update.buzz/auth",
+      "original_ml_proba": 0.8855,
+      "perturbed_ml_proba": 0.7946,
+      "evaded_ml": false,
+      "proba_drop": 0.0909
+    },
+    {
+      "id": "adv_case_10",
+      "name": "Package Delivery Failure to Courier Notice",
+      "removed_triggers": [
+        "failed",
+        "redelivery fee",
+        "return to sender"
+      ],
+      "original_text": "Package delivery failed: Pay the redelivery fee at http://dhl-parcel.top to avoid return to sender.",
+      "perturbed_text": "Logistics Status: Courier tracking documentation is ready for observation at http://dhl-parcel.top.",
+      "original_ml_proba": 0.8437,
+      "perturbed_ml_proba": 0.5451,
+      "evaded_ml": false,
+      "proba_drop": 0.2986
+    }
+  ]
+}

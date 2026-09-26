@@ -131,13 +131,13 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Implement API endpoint and unit tests.
 
 ### Phase 15: Module B — Explanation-Guided Adversarial Self-Evaluation
-- [ ] Implement `backend/app/adversarial/adversarial_evaluator.py`.
-- [ ] Extract top trigger tokens identified by Phase 13 explainability.
-- [ ] Craft 10–15 adversarial test cases that semantically preserve phishing intent while neutralizing top SHAP triggers.
-- [ ] Run automated evaluation script `scripts/run_adversarial_eval.py`.
-- [ ] Measure evasion success rate and risk score degradation.
-- [ ] Document all results (including evasion successes) in `docs/adversarial-eval.md`.
-- [ ] Add unit tests and API endpoints for adversarial metrics.
+- [x] Implement `backend/app/adversarial/adversarial_evaluator.py`.
+- [x] Extract top trigger tokens identified by Phase 13 explainability.
+- [x] Craft 10–15 adversarial test cases that semantically preserve phishing intent while neutralizing top SHAP triggers.
+- [x] Run automated evaluation script `scripts/run_adversarial_eval.py`.
+- [x] Measure evasion success rate and risk score degradation.
+- [x] Document all results (including evasion successes) in `docs/adversarial-eval.md`.
+- [x] Add unit tests and API endpoints for adversarial metrics.
 
 ### Phase 16: Multi-Factor Hybrid Risk Engine
 - [ ] Implement `backend/app/services/risk_engine.py` applying weighted risk algorithm:
