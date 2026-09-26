@@ -14,6 +14,7 @@ class EmailMetadataSchema(BaseModel):
     date: str
     sha256: str
     body_text: Optional[str] = None
+    raw_email: Optional[str] = None
 
 
 class OverallRiskSchema(BaseModel):

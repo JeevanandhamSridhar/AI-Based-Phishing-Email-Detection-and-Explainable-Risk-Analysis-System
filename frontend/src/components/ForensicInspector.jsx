@@ -17,7 +17,8 @@ import {
   Eye,
   Sliders,
   ExternalLink,
-  Code
+  Code,
+  Info
 } from 'lucide-react';
 
 export default function ForensicInspector({
@@ -35,13 +36,12 @@ export default function ForensicInspector({
   const setActiveTab = onTabChange || setInternalTab;
 
   const [copiedText, setCopiedText] = useState(false);
-  const [copiedHeader, setCopiedHeader] = useState(false);
+  const [copiedRaw, setCopiedRaw] = useState(false);
   const [showPhishingHighlights, setShowPhishingHighlights] = useState(true);
   const [showLegitHighlights, setShowLegitHighlights] = useState(true);
-  const [showLineNumbers, setShowLineNumbers] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const bodyText = emailMetadata.body_text || emailMetadata.body || emailMetadata.snippet || '';
+  const rawEmail = emailMetadata.raw_email || '';
 
   // Extract tokens for XAI highlights
   const phishingTokens = useMemo(() => {
@@ -80,7 +80,7 @@ export default function ForensicInspector({
     if (!bodyText) {
       return (
         <div className="p-8 text-center text-slate-500 font-mono text-xs">
-          [NO PLAIN BODY CAPTURED IN HEADERS ONLY EMAIL]
+          [NO PLAIN BODY FOUND — HEADERS ONLY EMAIL]
         </div>
       );
     }
@@ -182,6 +182,13 @@ export default function ForensicInspector({
       count: (socialFindings.categories_flagged || []).length || null,
       accent: (socialFindings.categories_flagged || []).length > 0 ? 'text-amber-400' : 'text-slate-400'
     },
+    {
+      id: 'raw_source',
+      label: 'Raw RFC-822 Source',
+      icon: Code,
+      count: rawEmail ? 'MIME' : null,
+      accent: 'text-indigo-400'
+    }
   ];
 
   return (
@@ -231,6 +238,17 @@ export default function ForensicInspector({
       {/* TAB 0: INTERACTIVE IN-BODY XAI HIGHLIGHTER */}
       {activeTab === 'xai_body' && (
         <div className="space-y-4">
+          {/* Informative Explanation of Clean Extracted Text */}
+          <div className="p-3 rounded-xl bg-blue-950/20 border border-blue-900/40 flex items-start gap-2.5 text-xs text-slate-300">
+            <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-semibold text-cyan-300 block">Parsed Semantic Message Body</span>
+              <span className="text-[11px] text-slate-400 leading-relaxed">
+                All transport headers, MIME multipart boundaries (<code className="text-cyan-400">--boundary</code>), and HTML markup have been automatically stripped by the static engine. The clean text below is what was evaluated by the ML classifier and SHAP explainer.
+              </span>
+            </div>
+          </div>
+
           {/* Controls & Legend Bar */}
           <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
@@ -264,7 +282,7 @@ export default function ForensicInspector({
               <button
                 onClick={() => copyToClipboard(bodyText, setCopiedText)}
                 className="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono border border-slate-700 flex items-center gap-1.5 transition-colors"
-                title="Copy plain email body"
+                title="Copy clean parsed body text"
               >
                 {copiedText ? (
                   <>
@@ -274,7 +292,7 @@ export default function ForensicInspector({
                 ) : (
                   <>
                     <Copy className="w-3 h-3 text-slate-400" />
-                    <span>Copy Body</span>
+                    <span>Copy Clean Body</span>
                   </>
                 )}
               </button>
@@ -289,7 +307,7 @@ export default function ForensicInspector({
           {/* Forensic Micro-Footer */}
           <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 font-mono">
             <span>Hover highlighted token for exact Shapley log-odds contribution values</span>
-            <span>Character Count: {bodyText.length}</span>
+            <span>Parsed Body Size: {bodyText.length} characters</span>
           </div>
         </div>
       )}
@@ -556,6 +574,51 @@ export default function ForensicInspector({
               </div>
             </div>
           )}
+        </div>
+      )}
+
+      {/* TAB 5: RAW RFC-822 / MIME ENVELOPE SOURCE */}
+      {activeTab === 'raw_source' && (
+        <div className="space-y-4">
+          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 flex items-start justify-between gap-3">
+            <div className="flex items-start gap-2.5 text-xs text-slate-300">
+              <Code className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-semibold text-indigo-300 block">Raw RFC-822 / MIME Envelope Source</span>
+                <span className="text-[11px] text-slate-400 leading-relaxed">
+                  This is the exact byte stream transmitted over SMTP, including raw transport headers, cryptographic signatures (ARC/DKIM), and multipart boundary delimiters (<code className="text-indigo-300">--boundary</code>).
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={() => copyToClipboard(rawEmail, setCopiedRaw)}
+              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono border border-slate-700 flex items-center gap-1.5 transition-colors shrink-0"
+              title="Copy complete raw RFC-822 email source"
+            >
+              {copiedRaw ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-emerald-400">Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Copy Source</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-950/90 border border-slate-800/80 font-mono text-[11px] text-slate-300 overflow-x-auto max-h-[460px] overflow-y-auto select-text scrollbar-thin leading-relaxed">
+            {rawEmail ? (
+              <pre className="whitespace-pre-wrap">{rawEmail}</pre>
+            ) : (
+              <div className="text-center py-8 text-slate-500 italic">
+                [Raw RFC-822 envelope not captured or email was analyzed via direct plain text body]
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

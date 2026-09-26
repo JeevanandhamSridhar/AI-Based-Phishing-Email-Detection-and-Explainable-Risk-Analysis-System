@@ -126,6 +126,7 @@ class TriageService:
                 date=parsed.headers.date,
                 sha256=parsed.sha256,
                 body_text=parsed.body_plain,
+                raw_email=raw_email,
             ),
             overall_risk=OverallRiskSchema(
                 score=risk_res.score,

@@ -251,12 +251,23 @@ export default function AnalyzeView({ onAnalysisComplete }) {
           </div>
         </div>
 
+        {/* Format Guidance Banner */}
+        <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 text-xs text-slate-300">
+          <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+          <div className="leading-relaxed">
+            <span className="font-semibold text-slate-200">How Raw Email Ingestion Works: </span>
+            <span className="text-slate-400 text-[11px]">
+              You can paste either a plain email body OR the full raw message from Gmail / Outlook (via <em>"Show original"</em> / <em>"Download message"</em>). Raw emails naturally contain transport headers, MIME boundaries (<code className="text-cyan-400">--boundary</code>), and HTML code. PhishGuard automatically strips the code, validates authentication (SPF, DKIM, DMARC), and extracts clean text for AI evaluation.
+            </span>
+          </div>
+        </div>
+
         {/* Raw Text Input Area with Code Toolbar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs pb-1">
             <label htmlFor="raw-email-input" className="font-semibold text-slate-300 flex items-center gap-2">
               <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Raw RFC-822 Message Content:</span>
+              <span>Raw RFC-822 / Text Message Content:</span>
             </label>
             <div className="flex items-center gap-3 font-mono text-[11px]">
               <span className="text-slate-400">
