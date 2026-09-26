@@ -48,12 +48,12 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests covering diverse MIME structures (multipart, base64 encoded, plain text).
 
 ### Phase 5: Header & Authentication Analyzer
-- [ ] Implement `backend/app/analyzers/header_analyzer.py`.
-- [ ] Parse `Authentication-Results` and `Received-SPF` headers for SPF (pass/fail/softfail/none).
-- [ ] Parse DKIM verification outcomes and DMARC alignment status.
-- [ ] Detect From vs. Reply-To and From vs. Return-Path domain mismatches.
-- [ ] Detect display name spoofing (e.g., "PayPal Security <attacker@mail.ru>").
-- [ ] Write comprehensive unit tests for header inspection scenarios.
+- [x] Implement `backend/app/analyzers/header_analyzer.py`.
+- [x] Parse `Authentication-Results` and `Received-SPF` headers for SPF (pass/fail/softfail/none).
+- [x] Parse DKIM verification outcomes and DMARC alignment status.
+- [x] Detect From vs. Reply-To and From vs. Return-Path domain mismatches.
+- [x] Detect display name spoofing (e.g., "PayPal Security <attacker@mail.ru>").
+- [x] Write comprehensive unit tests for header inspection scenarios.
 
 ### Phase 6: Static URL Risk Analyzer
 - [ ] Implement `backend/app/analyzers/url_analyzer.py`.
