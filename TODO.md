@@ -33,11 +33,11 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write pytest tests for FastAPI initialization and health endpoint.
 
 ### Phase 3: SQLite Database & SQLAlchemy Persistence
-- [ ] Configure `backend/app/core/database.py` with SQLAlchemy engine and session factory.
-- [ ] Implement `AnalysisRecord` model in `backend/app/models/analysis.py`.
-- [ ] Implement `ModelMetricRecord` and `AdversarialRecord` models.
-- [ ] Implement database initialization script and lifespan event.
-- [ ] Write unit tests for database schema, queries, and record storage.
+- [x] Configure `backend/app/core/database.py` with SQLAlchemy engine and session factory.
+- [x] Implement `AnalysisRecord` model in `backend/app/models/analysis.py`.
+- [x] Implement `ModelMetricRecord` and `AdversarialRecord` models.
+- [x] Implement database initialization script and lifespan event.
+- [x] Write unit tests for database schema, queries, and record storage.
 
 ### Phase 4: Static Email Parser
 - [ ] Implement `backend/app/utils/email_parser.py` parsing `.eml`, `.txt`, and raw string formats.

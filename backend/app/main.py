@@ -24,6 +24,11 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     else:
         logger.info("Risk engine weight calibration verified (Total = 100.0).")
 
+    # Initialize SQLite database tables
+    from app.core.database import init_db
+    init_db()
+    logger.info("Database initialized successfully at %s", settings.DATABASE_URL)
+
     yield
 
     logger.info("Shutting down %s...", settings.PROJECT_NAME)
