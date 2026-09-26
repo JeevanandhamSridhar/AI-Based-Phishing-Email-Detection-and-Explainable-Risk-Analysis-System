@@ -112,38 +112,19 @@ export default function Navbar({ activeTab, setActiveTab }) {
             })}
           </nav>
 
-          {/* Defensive Invariant & Telemetry Pills */}
+          {/* Live API Health & Telemetry Status */}
           <div className="flex items-center gap-2">
-            {/* Defensive Mode Badge */}
             <div 
-              title="Defensive Guarantee: Zero URL visits, zero attachment detonation, fully offline local processing"
-              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-[11px] font-mono shadow-sm"
-            >
-              <Lock className="w-3 h-3 text-emerald-400" />
-              <span>PASSIVE DEFENSIVE</span>
-            </div>
-
-            {/* Local In-Process Badge */}
-            <div 
-              title="All ML inference and SQLite storage strictly local (zero cloud cost)"
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800/70 border border-slate-700/60 text-slate-300 text-[11px] font-mono"
-            >
-              <HardDrive className="w-3 h-3 text-cyan-400" />
-              <span>OFFLINE LOCAL</span>
-            </div>
-
-            {/* Backend Connectivity Status */}
-            <div 
-              title={backendHealth.online ? `API Operational (${backendHealth.latency}ms)` : 'API Offline'}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-mono border transition-all ${
+              title={backendHealth.online ? `FastAPI Backend Operational (Response time: ${backendHealth.latency}ms)` : 'Backend Offline'}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-mono border transition-all ${
                 backendHealth.online
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-sm'
                   : 'bg-red-500/10 border-red-500/30 text-red-400'
               }`}
             >
               <span className={`w-2 h-2 rounded-full ${backendHealth.online ? 'bg-emerald-400 animate-pulse' : 'bg-red-400'}`} />
               <span className="font-semibold">
-                {backendHealth.online ? (backendHealth.latency ? `${backendHealth.latency}ms` : 'READY') : 'OFFLINE'}
+                {backendHealth.online ? `API: ${backendHealth.latency || '<1'}ms` : 'API OFFLINE'}
               </span>
             </div>
           </div>
