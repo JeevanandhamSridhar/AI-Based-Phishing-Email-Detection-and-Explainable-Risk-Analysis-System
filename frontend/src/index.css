@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #080c14;
+    color: #f1f5f9;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0b1120;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Glow effects for SOC status badges */
+.glow-critical {
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
+}
+.glow-high {
+  box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);
+}
+.glow-moderate {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+}
+.glow-low {
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+}
+.glow-accent {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+}

@@ -68,6 +68,16 @@ def create_application() -> FastAPI:
     # Mount API Router under prefix (/api)
     app.include_router(api_router, prefix=settings.API_PREFIX)
 
+    # Optional Single-Server Static Asset Mount for Frontend SPA
+    from pathlib import Path
+    from fastapi.staticfiles import StaticFiles
+    curr = Path(__file__).resolve()
+    for p in [curr] + list(curr.parents):
+        cand = p / "frontend" / "dist"
+        if cand.exists() and cand.is_dir():
+            app.mount("/app", StaticFiles(directory=str(cand), html=True), name="frontend_dist")
+            break
+
     @app.get("/", tags=["Root"])
     async def root_info() -> dict:
         """Root status and discovery payload."""
@@ -75,6 +85,7 @@ def create_application() -> FastAPI:
             "name": settings.PROJECT_NAME,
             "version": settings.VERSION,
             "docs": "/docs",
+            "frontend_app": "/app",
             "api_health": f"{settings.API_PREFIX}/health",
             "safety_mode": "defensive-static-only",
         }

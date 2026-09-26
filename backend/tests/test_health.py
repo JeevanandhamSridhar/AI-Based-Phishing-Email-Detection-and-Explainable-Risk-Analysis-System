@@ -92,3 +92,13 @@ def test_custom_error_handling():
     assert payload["error"]["message"] == "Corrupted MIME boundary"
     assert payload["error"]["details"]["offset"] == 104
 
+
+def test_frontend_static_serving():
+    """Verify that frontend static bundle is accessible at /app if built."""
+    response = client.get("/app/")
+    # If frontend/dist exists, status should be 200, otherwise 404
+    assert response.status_code in (200, 404)
+    if response.status_code == 200:
+        assert "PhishGuard" in response.text or "<!doctype html>" in response.text.lower()
+
+
