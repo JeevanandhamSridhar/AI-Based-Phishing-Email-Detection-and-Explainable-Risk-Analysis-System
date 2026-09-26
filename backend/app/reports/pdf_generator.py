@@ -4,6 +4,7 @@ Generates cryptographically stamped, professional incident response PDF forensic
 using ReportLab with zero third-party cloud dependencies.
 """
 
+import html
 from io import BytesIO
 from typing import Dict, Any
 from reportlab.lib.pagesizes import letter
@@ -17,6 +18,14 @@ from reportlab.platypus import (
     TableStyle,
     HRFlowable,
 )
+
+
+def clean_text(val: Any, max_len: int = 120) -> str:
+    """Escapes XML/HTML tags and optionally truncates strings for safe ReportLab Paragraph rendering."""
+    s = str(val or "")
+    if max_len and len(s) > max_len:
+        s = s[:max_len] + "..."
+    return html.escape(s)
 
 
 def generate_forensic_pdf(analysis_data: Dict[str, Any]) -> bytes:
@@ -95,27 +104,27 @@ def generate_forensic_pdf(analysis_data: Dict[str, Any]) -> bytes:
     id_data = [
         [
             Paragraph("<b>Investigation ID:</b>", body_style),
-            Paragraph(analysis_data.get("id", "N/A"), body_style),
+            Paragraph(clean_text(analysis_data.get("id", "N/A"), 40), body_style),
             Paragraph("<b>Severity Tier:</b>", body_style),
-            Paragraph(f"<b><font color='{sev_color.hexval()}'>{severity} ({risk.get('score', 0.0)}/100)</font></b>", body_style),
+            Paragraph(f"<b><font color='{sev_color.hexval()}'>{clean_text(severity)} ({risk.get('score', 0.0)}/100)</font></b>", body_style),
         ],
         [
             Paragraph("<b>Timestamp:</b>", body_style),
-            Paragraph(analysis_data.get("timestamp", "N/A")[:19] + " UTC", body_style),
+            Paragraph(clean_text(str(analysis_data.get("timestamp", "N/A"))[:19] + " UTC", 30), body_style),
             Paragraph("<b>Subject:</b>", body_style),
-            Paragraph(meta.get("subject", "(No Subject)")[:40], body_style),
+            Paragraph(clean_text(meta.get("subject", "(No Subject)"), 40), body_style),
         ],
         [
             Paragraph("<b>Sender:</b>", body_style),
-            Paragraph(meta.get("from_header", "Unknown")[:40], body_style),
+            Paragraph(clean_text(meta.get("from_header", "Unknown"), 40), body_style),
             Paragraph("<b>Recipient:</b>", body_style),
-            Paragraph(meta.get("to_header", "Unknown")[:40], body_style),
+            Paragraph(clean_text(meta.get("to_header", "Unknown"), 40), body_style),
         ],
         [
             Paragraph("<b>SHA-256 Digest:</b>", body_style),
-            Paragraph(f"<font size=7>{meta.get('sha256', 'N/A')}</font>", body_style),
+            Paragraph(f"<font size=7>{clean_text(meta.get('sha256', 'N/A'), 64)}</font>", body_style),
             Paragraph("<b>Sender Domain:</b>", body_style),
-            Paragraph(meta.get("sender_domain", "N/A"), body_style),
+            Paragraph(clean_text(meta.get("sender_domain", "N/A"), 30), body_style),
         ],
     ]
 
@@ -190,17 +199,19 @@ def generate_forensic_pdf(analysis_data: Dict[str, Any]) -> bytes:
     # 4. Explainable AI (XAI) Synthesis
     story.append(Paragraph("2. Explainable AI Analysis (SHAP Feature Attribution)", section_heading))
     xai = analysis_data.get("explainability", {})
-    summary_text = xai.get("human_readable_summary", "No explanation available.")
+    summary_text = clean_text(xai.get("human_readable_summary", "No explanation available."), 500)
+    caveat_text = clean_text(xai.get("caveat", "Local model attribution, not proof."), 200)
     story.append(Paragraph(f"<b>Model Rationale:</b> {summary_text}", body_style))
     story.append(Spacer(1, 4))
-    story.append(Paragraph(f"<i>Caveat: {xai.get('caveat', 'Local model attribution, not proof.')}</i>", caveat_style))
+    story.append(Paragraph(f"<i>Caveat: {caveat_text}</i>", caveat_style))
     story.append(Spacer(1, 14))
 
     # 5. Module A: AI Authorship Indicator
     story.append(Paragraph("3. AI-Generated Authorship Estimation (Module A)", section_heading))
     authorship = analysis_data.get("ai_authorship", {})
     ai_pct = authorship.get("ai_generated_likelihood", 0.0)
-    ai_class = authorship.get("classification", "Unknown")
+    ai_class = clean_text(authorship.get("classification", "Unknown"), 40)
+    author_caveat = clean_text(authorship.get("caveat", "Model-based indicator, not proof."), 200)
 
     author_data = [
         [
@@ -220,13 +231,13 @@ def generate_forensic_pdf(analysis_data: Dict[str, Any]) -> bytes:
     ]))
     story.append(author_table)
     story.append(Spacer(1, 4))
-    story.append(Paragraph(f"<i>Caveat: {authorship.get('caveat', 'Model-based indicator, not proof.')}</i>", caveat_style))
+    story.append(Paragraph(f"<i>Caveat: {author_caveat}</i>", caveat_style))
     story.append(Spacer(1, 16))
 
     # 6. Forensic Evidence Signatures
     story.append(Paragraph("4. Forensic Evidence Stamp & Safety Chain", section_heading))
     audit_data = [
-        [Paragraph("<b>Message Digest:</b>", body_style), Paragraph(f"<font size=7>{meta.get('sha256', 'N/A')}</font>", body_style)],
+        [Paragraph("<b>Message Digest:</b>", body_style), Paragraph(f"<font size=7>{clean_text(meta.get('sha256', 'N/A'), 64)}</font>", body_style)],
         [Paragraph("<b>Defensive Invariant:</b>", body_style), Paragraph("Zero execution of attachments; Zero network resolution of URLs.", body_style)],
         [Paragraph("<b>Compliance Standard:</b>", body_style), Paragraph("Local-First Security Assessment (B.Sc. Capstone Architecture)", body_style)],
     ]

@@ -198,7 +198,7 @@ export default function HistoryView({ onSelectInvestigation }) {
                       {getSeverityBadge(item.severity, item.risk_score)}
                     </td>
                     <td className="py-3.5 pr-4 whitespace-nowrap font-mono text-[11px] text-purple-300">
-                      {Math.round(Number(item.ai_generated_likelihood || 0) * 100)}%
+                      {Number(item.ai_generated_likelihood) <= 1.0 ? Math.round(Number(item.ai_generated_likelihood || 0) * 100) : Math.round(Number(item.ai_generated_likelihood || 0))}%
                     </td>
                     <td className="py-3.5 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-2">

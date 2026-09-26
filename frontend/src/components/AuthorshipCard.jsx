@@ -9,7 +9,8 @@ export default function AuthorshipCard({ aiAuthorship = {} }) {
     caveat = 'Model-based indicator, not proof of AI authorship.',
   } = aiAuthorship;
 
-  const pct = Math.round(Number(ai_generated_likelihood || 0) * 100);
+  const rawLikelihood = Number(ai_generated_likelihood || 0);
+  const pct = rawLikelihood <= 1.0 ? Math.round(rawLikelihood * 100) : Math.round(rawLikelihood);
   const isAI = pct >= 50;
 
   return (
