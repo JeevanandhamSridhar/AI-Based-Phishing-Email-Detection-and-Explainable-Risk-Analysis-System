@@ -56,15 +56,15 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write comprehensive unit tests for header inspection scenarios.
 
 ### Phase 6: Static URL Risk Analyzer
-- [ ] Implement `backend/app/analyzers/url_analyzer.py`.
-- [ ] Check for raw IP address hosts (IPv4, IPv6, hex-encoded).
-- [ ] Check for Punycode / IDN homograph indicators.
-- [ ] Check for excessive subdomain depth (>= 3).
-- [ ] Detect high-risk TLDs (.xyz, .top, .buzz, etc.).
-- [ ] Identify deceptive authority tokens in subdomains (e.g., `login.paypal.com.attacker.com`).
-- [ ] Compute Shannon entropy for path/domain obfuscation.
-- [ ] Calculate aggregate URL risk score (0–100).
-- [ ] Write unit tests verifying static analysis without outbound network calls.
+- [x] Implement `backend/app/analyzers/url_analyzer.py`.
+- [x] Check for raw IP address hosts (IPv4, IPv6, hex-encoded).
+- [x] Check for Punycode / IDN homograph indicators.
+- [x] Check for excessive subdomain depth (>= 3).
+- [x] Detect high-risk TLDs (.xyz, .top, .buzz, etc.).
+- [x] Identify deceptive authority tokens in subdomains (e.g., `login.paypal.com.attacker.com`).
+- [x] Compute Shannon entropy for path/domain obfuscation.
+- [x] Calculate aggregate URL risk score (0–100).
+- [x] Write unit tests verifying static analysis without outbound network calls.
 
 ### Phase 7: Sender & Domain Impersonation Analyzer
 - [ ] Implement `backend/app/analyzers/sender_analyzer.py`.
