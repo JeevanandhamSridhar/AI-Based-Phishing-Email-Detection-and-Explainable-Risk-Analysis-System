@@ -83,13 +83,13 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests for linguistic trigger patterns.
 
 ### Phase 9: Static Attachment Metadata Analyzer
-- [ ] Implement `backend/app/analyzers/attachment_analyzer.py`.
-- [ ] Screen against high-risk executable extensions (.exe, .scr, .vbs, .bat, .ps1, .iso, .jar, .cmd).
-- [ ] Screen for double extensions (.pdf.exe, .doc.vbs, .invoice.xlsx.scr).
-- [ ] Detect macro-enabled document types (.docm, .xlsm, .pptm).
-- [ ] Flag MIME type vs. extension discrepancies.
-- [ ] Compute attachment risk score (0–100).
-- [ ] Write unit tests verifying safe static extraction.
+- [x] Implement `backend/app/analyzers/attachment_analyzer.py`.
+- [x] Screen against high-risk executable extensions (.exe, .scr, .vbs, .bat, .ps1, .iso, .jar, .cmd).
+- [x] Screen for double extensions (.pdf.exe, .doc.vbs, .invoice.xlsx.scr).
+- [x] Detect macro-enabled document types (.docm, .xlsm, .pptm).
+- [x] Flag MIME type vs. extension discrepancies.
+- [x] Compute attachment risk score (0–100).
+- [x] Write unit tests verifying safe static extraction.
 
 ### Phase 10: Dataset Pipeline & Verified Synthetic Samples
 - [ ] Create data ingestion script `scripts/preprocess_dataset.py`.
