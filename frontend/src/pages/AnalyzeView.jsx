@@ -16,45 +16,77 @@ import {
   Copy,
   ScanLine,
   Mail,
-  ChevronRight
+  ChevronRight,
+  History,
+  ExternalLink,
+  ShieldCheck,
+  FileCheck
 } from 'lucide-react';
 import { api } from '../services/api';
 
-export default function AnalyzeView({ onAnalysisComplete }) {
+export default function AnalyzeView({ onAnalysisComplete, onSelectInvestigation }) {
   const [rawEmail, setRawEmail] = useState('');
   const [fileName, setFileName] = useState('manual_input.eml');
   const [samples, setSamples] = useState([]);
+  const [userTestedMails, setUserTestedMails] = useState([]);
   const [selectedSample, setSelectedSample] = useState(null);
+  const [activePresetTab, setActivePresetTab] = useState('presets'); // 'presets' | 'user_tested'
   const [loading, setLoading] = useState(false);
+  const [loadingHistoryItem, setLoadingHistoryItem] = useState(null);
   const [scanStep, setScanStep] = useState(0);
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadedFileMeta, setUploadedFileMeta] = useState(null);
 
-  // Fetch synthetic presets on mount
+  // Fetch synthetic presets and user's tested emails on mount
   useEffect(() => {
     let mounted = true;
-    const loadSamples = async () => {
+
+    const loadData = async () => {
       try {
-        const data = await api.getSamples();
-        if (mounted && Array.isArray(data)) {
-          setSamples(data);
+        const [sampleData, historyData] = await Promise.all([
+          api.getSamples().catch(() => []),
+          api.getHistory(1, 30).catch(() => []),
+        ]);
+        if (mounted) {
+          if (Array.isArray(sampleData)) setSamples(sampleData);
+          if (Array.isArray(historyData)) setUserTestedMails(historyData);
         }
       } catch (err) {
-        console.warn('Could not prefetch sample emails:', err);
+        console.warn('Could not prefetch samples or history:', err);
       }
     };
-    loadSamples();
+
+    loadData();
     return () => {
       mounted = false;
     };
   }, []);
 
-  // Handle Preset Selection
+  // Handle Synthetic Preset Selection
   const handleSelectSample = (sample) => {
     setSelectedSample(sample.filename);
     setRawEmail(sample.raw_content);
     setFileName(sample.filename);
+    setUploadedFileMeta(null);
     setError(null);
+  };
+
+  // Inspect an email from the user's tested history
+  const handleInspectUserMail = async (item) => {
+    setLoadingHistoryItem(item.id);
+    try {
+      const detail = await api.getHistoryDetail(item.id);
+      if (onSelectInvestigation) {
+        onSelectInvestigation(detail);
+      } else if (onAnalysisComplete) {
+        onAnalysisComplete(detail);
+      }
+    } catch (err) {
+      setError(`Failed to load investigation details: ${err.message}`);
+    } finally {
+      setLoadingHistoryItem(null);
+    }
   };
 
   // Handle file drop & selection
@@ -77,6 +109,12 @@ export default function AnalyzeView({ onAnalysisComplete }) {
   const processSelectedFile = (file) => {
     setFileName(file.name);
     setSelectedSample(null);
+    setUploadedFileMeta({
+      name: file.name,
+      size: (file.size / 1024).toFixed(1) + ' KB',
+      lastModified: new Date(file.lastModified).toLocaleTimeString()
+    });
+
     const reader = new FileReader();
     reader.onload = (event) => {
       setRawEmail(event.target.result);
@@ -122,6 +160,26 @@ export default function AnalyzeView({ onAnalysisComplete }) {
   const charCount = rawEmail.length;
   const lineCount = rawEmail ? rawEmail.split('\n').length : 0;
 
+  // Helper function to format verdict badge for tested emails
+  const getTestedMailBadge = (severity, score) => {
+    if (severity === 'LOW' || score < 25) {
+      return {
+        label: 'LEGITIMATE (BENIGN)',
+        className: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+      };
+    }
+    if (severity === 'MODERATE' || (score >= 25 && score < 50)) {
+      return {
+        label: 'SUSPICIOUS (SPAM)',
+        className: 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+      };
+    }
+    return {
+      label: 'PHISHING (SPAM / THREAT)',
+      className: 'bg-red-500/15 text-red-300 border-red-500/30'
+    };
+  };
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       {/* Header Banner */}
@@ -151,19 +209,47 @@ export default function AnalyzeView({ onAnalysisComplete }) {
           </div>
         </div>
 
-        {/* Demonstration Preset Selector */}
-        {samples.length > 0 && (
-          <div className="mt-6 pt-5 border-t border-slate-800/80 relative z-10">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
+        {/* Dual Preset Tabs: Synthetic Demos vs User's Tested Emails */}
+        <div className="mt-6 pt-5 border-t border-slate-800/80 relative z-10">
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-3.5">
+            {/* Tab switch buttons */}
+            <div className="flex items-center gap-2 bg-slate-950/80 p-1 rounded-xl border border-slate-800">
+              <button
+                type="button"
+                onClick={() => setActivePresetTab('presets')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium font-['Outfit'] transition-all ${
+                  activePresetTab === 'presets'
+                    ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/30'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
                 <Zap className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Synthetic Incident Demonstration Presets:</span>
-              </div>
-              <span className="text-[10px] font-mono text-slate-500 hidden sm:inline">
-                Click any preset to auto-load
-              </span>
+                <span>Synthetic Presets ({samples.length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActivePresetTab('user_tested')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium font-['Outfit'] transition-all ${
+                  activePresetTab === 'user_tested'
+                    ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/30'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                <History className="w-3.5 h-3.5 text-purple-400" />
+                <span>Your Tested & Uploaded Emails ({userTestedMails.length})</span>
+              </button>
             </div>
 
+            <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">
+              {activePresetTab === 'presets' 
+                ? 'Click any synthetic preset to auto-load in editor' 
+                : 'Click any tested email to view its full forensic verdict'}
+            </span>
+          </div>
+
+          {/* TAB 1: SYNTHETIC INCIDENT DEMONSTRATION PRESETS */}
+          {activePresetTab === 'presets' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
               {samples.map((s) => {
                 const isSelected = selectedSample === s.filename;
@@ -202,8 +288,64 @@ export default function AnalyzeView({ onAnalysisComplete }) {
                 );
               })}
             </div>
-          </div>
-        )}
+          )}
+
+          {/* TAB 2: USER'S TESTED & UPLOADED EMAILS */}
+          {activePresetTab === 'user_tested' && (
+            <div>
+              {userTestedMails.length === 0 ? (
+                <div className="p-8 text-center rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-400 font-mono">
+                  <FileCheck className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+                  <p className="font-semibold text-slate-300 mb-1">No custom test emails analyzed yet.</p>
+                  <p className="text-[11px] text-slate-500">
+                    Upload an <span className="text-cyan-400">.eml</span> file or paste email text below and click <strong>"Execute Risk Analysis"</strong> to evaluate whether it's Legitimate or Phishing.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  {userTestedMails.slice(0, 9).map((item) => {
+                    const badge = getTestedMailBadge(item.severity, item.risk_score);
+                    const isLoadingThis = loadingHistoryItem === item.id;
+                    return (
+                      <div
+                        key={item.id}
+                        onClick={() => handleInspectUserMail(item)}
+                        className="p-3.5 rounded-xl cursor-pointer transition-all duration-200 border bg-slate-900/70 hover:bg-slate-800/90 border-slate-800 hover:border-slate-600 shadow-md flex flex-col justify-between group"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-2 mb-2">
+                            <span className={`text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded-full border ${badge.className}`}>
+                              {badge.label}
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-0.5 rounded border border-slate-800">
+                              Score: {item.risk_score.toFixed(1)}
+                            </span>
+                          </div>
+
+                          <h4 className="text-xs font-semibold text-slate-100 group-hover:text-blue-300 transition-colors line-clamp-1 font-['Outfit']">
+                            {item.subject || 'Untitled Email'}
+                          </h4>
+
+                          <p className="text-[10px] font-mono text-slate-400 truncate mt-1">
+                            {item.sender || 'Unknown Sender'}
+                          </p>
+                        </div>
+
+                        <div className="flex items-center justify-between mt-3 pt-2 border-t border-slate-800/60 text-[10px] font-mono text-slate-500">
+                          <span>{item.created_at ? new Date(item.created_at).toLocaleDateString() : ''}</span>
+                          <span className="text-blue-400 flex items-center gap-1 group-hover:underline">
+                            {isLoadingThis ? <Loader2 className="w-3 h-3 animate-spin" /> : <ExternalLink className="w-3 h-3" />}
+                            <span>Inspect Verdict</span>
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Error Banner */}
@@ -234,7 +376,7 @@ export default function AnalyzeView({ onAnalysisComplete }) {
           <input
             type="file"
             id="email-file-input"
-            accept=".eml,.txt"
+            accept=".eml,.txt,.msg"
             onChange={handleFileInput}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
@@ -243,7 +385,7 @@ export default function AnalyzeView({ onAnalysisComplete }) {
               <UploadCloud className="w-6 h-6 animate-pulse-subtle" />
             </div>
             <p className="text-xs font-semibold text-slate-200 font-['Outfit']">
-              Drag & drop an <span className="font-mono text-cyan-400">.eml</span> or <span className="font-mono text-cyan-400">.txt</span> email file here, or click to browse
+              Drag & drop an <span className="font-mono text-cyan-400">.eml</span>, <span className="font-mono text-cyan-400">.msg</span>, or <span className="font-mono text-cyan-400">.txt</span> email file here, or click to browse
             </p>
             <p className="text-[11px] text-slate-400 mt-1 font-mono">
               RFC-822 MIME format, raw email headers, and multipart message bodies
@@ -251,8 +393,24 @@ export default function AnalyzeView({ onAnalysisComplete }) {
           </div>
         </div>
 
+        {/* Uploaded File Confirmation Chip */}
+        {uploadedFileMeta && (
+          <div className="p-3 rounded-xl bg-cyan-950/30 border border-cyan-800/40 flex items-center justify-between text-xs font-mono">
+            <div className="flex items-center gap-2 text-cyan-300">
+              <FileCheck className="w-4 h-4 text-cyan-400" />
+              <span>Loaded File: <strong>{uploadedFileMeta.name}</strong> ({uploadedFileMeta.size})</span>
+            </div>
+            <button
+              onClick={handleAnalyze}
+              className="px-3 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold transition-colors"
+            >
+              Analyze This File Now
+            </button>
+          </div>
+        )}
+
         {/* Format Guidance Banner */}
-        <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 text-xs text-slate-300">
+        <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-start gap-2.5 text-xs text-slate-300">
           <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
           <div className="leading-relaxed">
             <span className="font-semibold text-slate-200">How Raw Email Ingestion Works: </span>
@@ -281,6 +439,7 @@ export default function AnalyzeView({ onAnalysisComplete }) {
                   onClick={() => {
                     setRawEmail('');
                     setSelectedSample(null);
+                    setUploadedFileMeta(null);
                     setFileName('manual_input.eml');
                   }}
                   className="text-slate-400 hover:text-red-400 transition-colors flex items-center gap-1"
