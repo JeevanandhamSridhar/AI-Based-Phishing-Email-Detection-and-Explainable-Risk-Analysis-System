@@ -98,16 +98,16 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Document dataset creation and curation in `data/README.md`.
 
 ### Phase 11: Machine Learning Baseline Classifier
-- [ ] Implement training script `scripts/train_baseline.py` (fixed random seed = 42).
-- [ ] Build Scikit-learn Pipeline with `TfidfVectorizer` (sublinear TF, ngram_range=(1,2)) and `LogisticRegression`.
-- [ ] Serialize artifacts: `models/baseline/model.joblib`, `models/baseline/vectorizer.joblib`.
-- [ ] Implement `backend/app/ml/prediction_service.py` with `predict()`, `predict_proba()`.
-- [ ] Write unit tests for model loading and deterministic scoring.
+- [x] Implement training script `scripts/train_baseline.py` (fixed random seed = 42).
+- [x] Build Scikit-learn Pipeline with `TfidfVectorizer` (sublinear TF, ngram_range=(1,2)) and `LogisticRegression`.
+- [x] Serialize artifacts: `models/baseline/model.joblib`, `models/baseline/vectorizer.joblib`.
+- [x] Implement `backend/app/ml/prediction_service.py` with `predict()`, `predict_proba()`.
+- [x] Write unit tests for model loading and deterministic scoring.
 
 ### Phase 12: Model Evaluation & Metrics Verification
-- [ ] Implement `scripts/evaluate_model.py` generating actual confusion matrix, Precision, Recall, F1, ROC-AUC.
-- [ ] Save authentic evaluation artifacts to `models/baseline/metrics.json`.
-- [ ] Verify zero fabrication of metrics.
+- [x] Implement `scripts/evaluate_model.py` generating actual confusion matrix, Precision, Recall, F1, ROC-AUC.
+- [x] Save authentic evaluation artifacts to `models/baseline/metrics.json`.
+- [x] Verify zero fabrication of metrics.
 
 ### Phase 13: Explainable AI Layer (SHAP & LIME)
 - [ ] Implement `backend/app/explainability/explainer.py`.

@@ -1,0 +1,17 @@
+{
+  "model_type": "LogisticRegression",
+  "vectorizer_type": "TfidfVectorizer",
+  "hyperparameters": {
+    "ngram_range": [
+      1,
+      2
+    ],
+    "max_features": 10000,
+    "sublinear_tf": true,
+    "C": 1.0,
+    "solver": "lbfgs",
+    "random_seed": 42
+  },
+  "trained_at": "2026-09-26T17:52:46.162306+00:00",
+  "vocabulary_size": 645
+}

@@ -1,0 +1,37 @@
+{
+  "model_name": "baseline_tfidf_logistic_regression",
+  "timestamp": "2026-09-26T17:52:46.162306+00:00",
+  "random_seed": 42,
+  "sample_counts": {
+    "total": 800,
+    "train": 640,
+    "test": 160
+  },
+  "metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0
+  },
+  "confusion_matrix": {
+    "matrix": [
+      [
+        80,
+        0
+      ],
+      [
+        0,
+        80
+      ]
+    ],
+    "labels": [
+      "legitimate (0)",
+      "phishing (1)"
+    ],
+    "tn": 80,
+    "fp": 0,
+    "fn": 0,
+    "tp": 80
+  }
+}
