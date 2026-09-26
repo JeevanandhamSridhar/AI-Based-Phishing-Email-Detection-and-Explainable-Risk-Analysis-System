@@ -167,10 +167,10 @@ Status: **PHASE 1 IN PROGRESS**
 - [ ] Build Historical Investigations Ledger.
 
 ### Phase 19: Forensic PDF Security Report Generator
-- [ ] Implement `backend/app/reports/pdf_generator.py` using ReportLab.
-- [ ] Include Executive Risk Summary, Detailed Evidence Matrix, URL/Attachment inventory, SHA-256 evidence stamp.
-- [ ] Expose download endpoint `GET /api/reports/download/{id}`.
-- [ ] Write tests ensuring valid PDF binary generation without external dependencies.
+- [x] Implement `backend/app/reports/pdf_generator.py` using ReportLab.
+- [x] Include Executive Risk Summary, Detailed Evidence Matrix, URL/Attachment inventory, SHA-256 evidence stamp.
+- [x] Expose download endpoint `GET /api/reports/download/{id}`.
+- [x] Write tests ensuring valid PDF binary generation without external dependencies.
 
 ### Phase 20: Performance, Authorship & Adversarial Dashboards
 - [ ] Build Model Performance View (Confusion Matrix, Precision/Recall/F1 metrics).
