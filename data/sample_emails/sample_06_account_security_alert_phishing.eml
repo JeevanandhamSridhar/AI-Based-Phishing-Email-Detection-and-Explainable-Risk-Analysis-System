@@ -1,0 +1,18 @@
+From: Microsoft 365 Security <admin@micros0ft-support-alert.com>
+To: employee@company.com
+Subject: Action Required: Your Office 365 Password Expires Today
+Date: Sat, 26 Sep 2026 16:00:00 +0000
+Authentication-Results: spf=fail; dkim=fail; dmarc=fail
+X-Project-Origin: Synthetic-Educational-Sample
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Your corporate Microsoft 365 access credentials will expire within 12 hours.
+To prevent interruption to your email and cloud files, keep your current password
+by authenticating through the single-sign-on verification server:
+
+http://192.168.1.185/office365/keep-password.php
+
+Unverified sessions will be disconnected at midnight.
+
+Microsoft Security Directorate

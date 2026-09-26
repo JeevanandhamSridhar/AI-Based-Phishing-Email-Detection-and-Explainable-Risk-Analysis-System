@@ -1,0 +1,23 @@
+From: HR Department <hr@acme-corp.com>
+To: all-employees@acme-corp.com
+Subject: Open Enrollment for 2027 Benefits - Information Session
+Date: Sat, 26 Sep 2026 09:00:00 +0000
+Message-ID: <benefits-2027@acme-corp.com>
+Authentication-Results: mx.google.com; spf=pass; dkim=pass header.i=@acme-corp.com; dmarc=pass
+X-Project-Origin: Synthetic-Educational-Sample
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Dear Acme Corp Team,
+
+Our annual benefits open enrollment period begins next Monday, October 5th.
+We have scheduled three optional informational webinars to answer questions regarding
+health plans, retirement matching, and wellness initiatives.
+
+You can review the updated benefits handbook on the intranet:
+https://intranet.acme-corp.com/hr/benefits-2027
+
+No immediate action is needed today. Please reach out if you have any questions.
+
+Warm regards,
+Acme Corp Human Resources

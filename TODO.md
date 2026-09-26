@@ -92,10 +92,10 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests verifying safe static extraction.
 
 ### Phase 10: Dataset Pipeline & Verified Synthetic Samples
-- [ ] Create data ingestion script `scripts/preprocess_dataset.py`.
-- [ ] Create synthetic demonstration emails under `data/sample_emails/` (clearly marked synthetic).
-- [ ] Curate balanced legitimate and phishing samples.
-- [ ] Document dataset creation and curation in `data/README.md`.
+- [x] Create data ingestion script `scripts/preprocess_dataset.py`.
+- [x] Create synthetic demonstration emails under `data/sample_emails/` (clearly marked synthetic).
+- [x] Curate balanced legitimate and phishing samples.
+- [x] Document dataset creation and curation in `data/README.md`.
 
 ### Phase 11: Machine Learning Baseline Classifier
 - [ ] Implement training script `scripts/train_baseline.py` (fixed random seed = 42).

@@ -1,0 +1,20 @@
+From: Cloud Computing Weekly <editor@cloudweeklynews.org>
+To: subscriber@target-domain.com
+Subject: Cloud Architecture Digest #142: Modern Microservices
+Date: Sat, 26 Sep 2026 08:30:00 +0000
+Message-ID: <digest-142@cloudweeklynews.org>
+Authentication-Results: spf=pass; dkim=pass header.i=@cloudweeklynews.org; dmarc=pass
+X-Project-Origin: Synthetic-Educational-Sample
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+
+Welcome to Issue #142 of Cloud Computing Weekly.
+
+In this edition, we explore container orchestration patterns, eBPF telemetry,
+and database sharding best practices for distributed systems.
+
+Read the full articles at our publication portal:
+https://cloudweeklynews.org/issues/142-microservices
+
+You received this because you subscribed to our developer newsletter.
+Manage your preferences or unsubscribe anytime at https://cloudweeklynews.org/unsubscribe
