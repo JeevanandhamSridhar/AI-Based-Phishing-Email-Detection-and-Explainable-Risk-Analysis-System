@@ -67,11 +67,11 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests verifying static analysis without outbound network calls.
 
 ### Phase 7: Sender & Domain Impersonation Analyzer
-- [ ] Implement `backend/app/analyzers/sender_analyzer.py`.
-- [ ] Implement Levenshtein distance matching against targeted financial/tech brand domains.
-- [ ] Detect lookalike characters (Cyrillic homoglyphs, symbol substitutions).
-- [ ] Compute sender impersonation score (0–100).
-- [ ] Write unit tests for typosquatting and homoglyph detection.
+- [x] Implement `backend/app/analyzers/sender_analyzer.py`.
+- [x] Implement Levenshtein distance matching against targeted financial/tech brand domains.
+- [x] Detect lookalike characters (Cyrillic homoglyphs, symbol substitutions).
+- [x] Compute sender impersonation score (0–100).
+- [x] Write unit tests for typosquatting and homoglyph detection.
 
 ### Phase 8: Social-Engineering Rule-Based Analyzer
 - [ ] Implement `backend/app/analyzers/social_engineering_analyzer.py`.
