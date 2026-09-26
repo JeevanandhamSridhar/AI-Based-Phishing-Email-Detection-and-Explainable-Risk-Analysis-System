@@ -22,7 +22,7 @@ As established by **Denis & Meurant (2024–25)** (*Robustness Analysis of a Mul
 
 ## 3. Real Measured Experimental Results
 
-*Measured via `scripts/run_adversarial_eval.py` on 2026-09-26T20:16:43.902023+00:00:*
+*Measured via `scripts/run_adversarial_eval.py` on 2026-09-26T20:21:33.730720+00:00:*
 
 | Metric | Measured Outcome |
 | :--- | :--- |
