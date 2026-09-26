@@ -24,13 +24,13 @@ Status: **PHASE 1 IN PROGRESS**
 - [ ] Verify Phase 1 completion and structure integrity.
 
 ### Phase 2: FastAPI Core Infrastructure
-- [ ] Initialize Python virtual environment.
-- [ ] Implement `backend/app/core/config.py` with Pydantic BaseSettings.
-- [ ] Implement `backend/app/core/logging.py` for structured SOC-style event logging.
-- [ ] Implement `backend/app/core/errors.py` for consistent error envelope responses.
-- [ ] Implement `backend/app/main.py` application factory with CORS middleware.
-- [ ] Implement `/api/health` endpoint returning server status, version, and module readiness.
-- [ ] Write pytest tests for FastAPI initialization and health endpoint.
+- [x] Initialize Python virtual environment.
+- [x] Implement `backend/app/core/config.py` with Pydantic BaseSettings.
+- [x] Implement `backend/app/core/logging.py` for structured SOC-style event logging.
+- [x] Implement `backend/app/core/errors.py` for consistent error envelope responses.
+- [x] Implement `backend/app/main.py` application factory with CORS middleware.
+- [x] Implement `/api/health` endpoint returning server status, version, and module readiness.
+- [x] Write pytest tests for FastAPI initialization and health endpoint.
 
 ### Phase 3: SQLite Database & SQLAlchemy Persistence
 - [ ] Configure `backend/app/core/database.py` with SQLAlchemy engine and session factory.
