@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Cpu, 
   Globe, 
@@ -7,25 +7,27 @@ import {
   MessageSquareWarning, 
   Paperclip, 
   FileCode2, 
-  Layers 
+  Layers,
+  HelpCircle
 } from 'lucide-react';
 
 export default function FactorBreakdown({ factorBreakdown = {} }) {
-  // Mapping of factor keys to display metadata
+  const [activeHover, setActiveHover] = useState(null);
+
   const factorMeta = {
     ml_phishing: {
       name: 'ML Phishing Probability',
       maxWeight: 30,
       icon: Cpu,
-      color: 'bg-blue-500',
-      textColor: 'text-blue-400',
+      color: 'bg-gradient-to-r from-blue-600 to-cyan-500',
+      textColor: 'text-cyan-400',
       description: 'Supervised Scikit-learn TF-IDF + Logistic Regression classification',
     },
     url_risk: {
       name: 'Static URL Analysis',
       maxWeight: 20,
       icon: Globe,
-      color: 'bg-indigo-500',
+      color: 'bg-gradient-to-r from-indigo-600 to-blue-500',
       textColor: 'text-indigo-400',
       description: 'IP hosts, Punycode, high-risk TLDs, entropy & subdomains',
     },
@@ -33,7 +35,7 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
       name: 'Header & Auth Alignment',
       maxWeight: 15,
       icon: MailCheck,
-      color: 'bg-purple-500',
+      color: 'bg-gradient-to-r from-purple-600 to-indigo-500',
       textColor: 'text-purple-400',
       description: 'SPF, DKIM, DMARC alignment & display-name spoofing',
     },
@@ -41,7 +43,7 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
       name: 'Sender Domain Impersonation',
       maxWeight: 10,
       icon: UserX,
-      color: 'bg-rose-500',
+      color: 'bg-gradient-to-r from-rose-600 to-pink-500',
       textColor: 'text-rose-400',
       description: 'Levenshtein brand typosquatting & homoglyph detection',
     },
@@ -49,7 +51,7 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
       name: 'Social Engineering Cues',
       maxWeight: 10,
       icon: MessageSquareWarning,
-      color: 'bg-amber-500',
+      color: 'bg-gradient-to-r from-amber-600 to-orange-500',
       textColor: 'text-amber-400',
       description: 'Urgency, fear coercion, financial bait & credential harvesting',
     },
@@ -57,7 +59,7 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
       name: 'Attachment Metadata Screening',
       maxWeight: 10,
       icon: Paperclip,
-      color: 'bg-orange-500',
+      color: 'bg-gradient-to-r from-orange-600 to-amber-500',
       textColor: 'text-orange-400',
       description: 'Executable extensions, double extensions & macro hazards',
     },
@@ -65,7 +67,7 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
       name: 'Content Obfuscation',
       maxWeight: 5,
       icon: FileCode2,
-      color: 'bg-cyan-500',
+      color: 'bg-gradient-to-r from-cyan-600 to-teal-500',
       textColor: 'text-cyan-400',
       description: 'Zero-width unicode, whitespace padding & CSS hidden text',
     },
@@ -82,15 +84,15 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
   ];
 
   return (
-    <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 backdrop-blur-md shadow-xl">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/80">
+    <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-xl shadow-2xl">
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800/90">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-blue-400" />
-          <h3 className="font-semibold text-slate-200 text-sm font-['Outfit']">
+          <Layers className="w-4 h-4 text-cyan-400" />
+          <h3 className="font-bold text-slate-100 text-sm font-['Outfit'] tracking-wide">
             Weighted Factor Decomposition (100 pts)
           </h3>
         </div>
-        <span className="text-[11px] font-mono text-slate-400">
+        <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-cyan-400 border border-slate-700">
           7 Independent Signals
         </span>
       </div>
@@ -114,52 +116,68 @@ export default function FactorBreakdown({ factorBreakdown = {} }) {
 
           const Icon = meta.icon;
           const pctOfMax = meta.maxWeight > 0 ? (item.weighted_contribution / meta.maxWeight) * 100 : 0;
+          const isHovered = activeHover === key;
 
           return (
-            <div key={key} className="group">
+            <div 
+              key={key} 
+              onMouseEnter={() => setActiveHover(key)}
+              onMouseLeave={() => setActiveHover(null)}
+              className={`p-2.5 rounded-xl transition-all duration-200 border ${
+                isHovered 
+                  ? 'bg-slate-800/60 border-slate-700 shadow-md' 
+                  : 'bg-transparent border-transparent'
+              }`}
+            >
               <div className="flex items-center justify-between text-xs mb-1.5">
-                <div className="flex items-center gap-2">
-                  <div className="p-1 rounded bg-slate-800/80 border border-slate-700/60">
-                    <Icon className={`w-3.5 h-3.5 ${meta.textColor}`} />
+                <div className="flex items-center gap-2.5">
+                  <div className={`p-1.5 rounded-lg bg-slate-950 border border-slate-800 ${meta.textColor}`}>
+                    <Icon className="w-3.5 h-3.5" />
                   </div>
                   <div>
-                    <span className="font-medium text-slate-200 group-hover:text-white transition-colors">
+                    <span className="font-semibold text-slate-200 font-['Outfit']">
                       {meta.name}
                     </span>
-                    <span className="ml-2 text-[10px] font-mono text-slate-400">
+                    <span className="ml-2 text-[10px] font-mono text-slate-400 font-medium">
                       (w: {item.weight || meta.maxWeight}%)
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 font-mono text-[11px]">
-                  <span className="text-slate-400">
+                <div className="flex items-center gap-2 font-mono text-[11px]">
+                  <span className="text-slate-400 hidden sm:inline">
                     Raw: <strong className="text-slate-200">{Number(item.raw_score).toFixed(0)}/100</strong>
                   </span>
-                  <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                  <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/25">
                     +{Number(item.weighted_contribution).toFixed(1)} pts
                   </span>
                 </div>
               </div>
 
-              {/* Visual Progress Bar */}
-              <div className="w-full bg-slate-800/80 rounded-full h-2 overflow-hidden flex border border-slate-700/40">
+              {/* Progress Track */}
+              <div className="w-full bg-slate-950 rounded-full h-2 overflow-hidden flex border border-slate-800 shadow-inner">
                 <div
-                  className={`h-full rounded-full transition-all duration-700 ${meta.color}`}
+                  className={`h-full rounded-full transition-all duration-700 shadow-sm ${meta.color}`}
                   style={{ width: `${Math.min(100, Math.max(0, pctOfMax))}%` }}
                 />
               </div>
 
-              {/* Subtext description & detail preview */}
-              <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400">
-                <span className="truncate max-w-[280px]">{meta.description}</span>
-                {item.details && Object.keys(item.details).length > 0 && (
-                  <span className="font-mono text-slate-400">
-                    {Object.entries(item.details)
-                      .slice(0, 1)
-                      .map(([k, v]) => `${k}: ${Array.isArray(v) ? (v.length ? v.join(', ') : 'none') : v}`)
-                      .join(' | ')}
+              {/* Detail Formula Tooltip on Hover */}
+              <div className="mt-1.5 flex items-center justify-between text-[10px] text-slate-400">
+                <span className="truncate max-w-[260px]">{meta.description}</span>
+                {isHovered ? (
+                  <span className="font-mono text-cyan-400 font-semibold animate-pulse">
+                    Formula: ({item.raw_score}/100) × {item.weight}% = {item.weighted_contribution} pts
                   </span>
+                ) : (
+                  item.details && Object.keys(item.details).length > 0 && (
+                    <span className="font-mono text-slate-500 truncate max-w-[180px]">
+                      {Object.entries(item.details)
+                        .slice(0, 1)
+                        .map(([k, v]) => `${k}: ${Array.isArray(v) ? (v.length ? v.join(', ') : 'none') : v}`)
+                        .join(' | ')}
+                    </span>
+                  )
                 )}
               </div>
             </div>

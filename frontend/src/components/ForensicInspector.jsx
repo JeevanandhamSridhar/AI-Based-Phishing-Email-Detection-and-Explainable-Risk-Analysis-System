@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   FileText, 
   Globe, 
@@ -9,7 +9,15 @@ import {
   XCircle, 
   ShieldCheck, 
   Hash, 
-  Lock 
+  Lock,
+  Sparkles,
+  Copy,
+  Check,
+  Search,
+  Eye,
+  Sliders,
+  ExternalLink,
+  Code
 } from 'lucide-react';
 
 export default function ForensicInspector({
@@ -18,40 +26,193 @@ export default function ForensicInspector({
   attachmentFindings = [],
   socialFindings = {},
   emailMetadata = {},
+  explainability = {},
+  activeTab: controlledTab,
+  onTabChange,
 }) {
-  const [activeTab, setActiveTab] = useState('headers');
+  const [internalTab, setInternalTab] = useState('xai_body');
+  const activeTab = controlledTab !== undefined ? controlledTab : internalTab;
+  const setActiveTab = onTabChange || setInternalTab;
+
+  const [copiedText, setCopiedText] = useState(false);
+  const [copiedHeader, setCopiedHeader] = useState(false);
+  const [showPhishingHighlights, setShowPhishingHighlights] = useState(true);
+  const [showLegitHighlights, setShowLegitHighlights] = useState(true);
+  const [showLineNumbers, setShowLineNumbers] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const bodyText = emailMetadata.body_text || emailMetadata.body || emailMetadata.snippet || '';
+
+  // Extract tokens for XAI highlights
+  const phishingTokens = useMemo(() => {
+    return (explainability.top_phishing_features || []).map(f => ({
+      word: (f.feature || f.token || f.word || '').toLowerCase(),
+      score: Number(f.importance || f.attribution || f.weight || 0),
+      type: 'phishing'
+    })).filter(t => t.word.length > 1);
+  }, [explainability.top_phishing_features]);
+
+  const legitTokens = useMemo(() => {
+    return (explainability.top_legitimate_features || []).map(f => ({
+      word: (f.feature || f.token || f.word || '').toLowerCase(),
+      score: Number(f.importance || f.attribution || f.weight || 0),
+      type: 'legitimate'
+    })).filter(t => t.word.length > 1);
+  }, [explainability.top_legitimate_features]);
+
+  // Map for fast lookup
+  const tokenMap = useMemo(() => {
+    const map = new Map();
+    phishingTokens.forEach(t => map.set(t.word, t));
+    legitTokens.forEach(t => map.set(t.word, t));
+    return map;
+  }, [phishingTokens, legitTokens]);
+
+  const copyToClipboard = (text, setCopied) => {
+    if (!text) return;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Render highlighted text with regex tokenization
+  const renderedContent = useMemo(() => {
+    if (!bodyText) {
+      return (
+        <div className="p-8 text-center text-slate-500 font-mono text-xs">
+          [NO PLAIN BODY CAPTURED IN HEADERS ONLY EMAIL]
+        </div>
+      );
+    }
+
+    const wordsToMatch = [];
+    if (showPhishingHighlights) wordsToMatch.push(...phishingTokens.map(t => t.word));
+    if (showLegitHighlights) wordsToMatch.push(...legitTokens.map(t => t.word));
+
+    if (wordsToMatch.length === 0) {
+      return (
+        <pre className="font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed select-text">
+          {bodyText}
+        </pre>
+      );
+    }
+
+    // Escape regex characters
+    const escaped = wordsToMatch
+      .sort((a, b) => b.length - a.length)
+      .map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+    const pattern = new RegExp(`(\\b(?:${escaped.join('|')})\\b)`, 'gi');
+    const parts = bodyText.split(pattern);
+
+    return (
+      <div className="font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed select-text">
+        {parts.map((part, index) => {
+          const lower = part.toLowerCase();
+          const match = tokenMap.get(lower);
+
+          if (match && ((match.type === 'phishing' && showPhishingHighlights) || (match.type === 'legitimate' && showLegitHighlights))) {
+            const isPhish = match.type === 'phishing';
+            return (
+              <span
+                key={index}
+                className={`relative group inline-block font-semibold px-1.5 py-0.5 rounded mx-0.5 transition-all cursor-pointer ${
+                  isPhish
+                    ? 'bg-red-500/25 text-red-200 border border-red-500/50 hover:bg-red-500/40 shadow-sm shadow-red-500/20'
+                    : 'bg-emerald-500/25 text-emerald-200 border border-emerald-500/50 hover:bg-emerald-500/40 shadow-sm shadow-emerald-500/20'
+                }`}
+              >
+                {part}
+                {/* Tooltip on hover */}
+                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex flex-col items-center z-50 pointer-events-none w-48 p-2 rounded-lg bg-slate-950/95 border border-slate-700 shadow-2xl backdrop-blur-md">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                    {isPhish ? 'Phishing Feature Trigger' : 'Benign Anchor Feature'}
+                  </span>
+                  <span className={`text-xs font-mono font-bold mt-0.5 ${isPhish ? 'text-red-400' : 'text-emerald-400'}`}>
+                    {isPhish ? `+${match.score.toFixed(3)} SHAP` : `${match.score.toFixed(3)} SHAP`}
+                  </span>
+                  <span className="text-[9px] text-slate-400 text-center mt-1">
+                    {isPhish ? 'Increases model phishing verdict probability' : 'Anchors prediction towards legitimate'}
+                  </span>
+                  <span className="w-2 h-2 bg-slate-950 border-r border-b border-slate-700 rotate-45 -mb-3 mt-1"></span>
+                </span>
+              </span>
+            );
+          }
+
+          return <span key={index}>{part}</span>;
+        })}
+      </div>
+    );
+  }, [bodyText, showPhishingHighlights, showLegitHighlights, phishingTokens, legitTokens, tokenMap]);
 
   const tabs = [
-    { id: 'headers', label: 'Headers & Auth', count: headerFindings.spoofing_detected ? 'Alert' : null },
-    { id: 'urls', label: 'Static URLs', count: urlFindings.length },
-    { id: 'attachments', label: 'Attachments', count: attachmentFindings.length },
-    { id: 'social', label: 'Social Engineering', count: (socialFindings.categories_flagged || []).length },
+    { 
+      id: 'xai_body', 
+      label: 'Interactive In-Body XAI', 
+      icon: Sparkles,
+      count: phishingTokens.length + legitTokens.length > 0 ? `${phishingTokens.length + legitTokens.length} Cues` : null,
+      accent: 'text-cyan-400'
+    },
+    { 
+      id: 'headers', 
+      label: 'Headers & Auth', 
+      icon: Lock,
+      count: headerFindings.spoofing_detected ? 'Alert' : null,
+      accent: headerFindings.spoofing_detected ? 'text-red-400' : 'text-slate-400'
+    },
+    { 
+      id: 'urls', 
+      label: 'Static URLs', 
+      icon: Globe,
+      count: urlFindings.length,
+      accent: urlFindings.length > 0 ? 'text-blue-400' : 'text-slate-400'
+    },
+    { 
+      id: 'attachments', 
+      label: 'Attachments', 
+      icon: Paperclip,
+      count: attachmentFindings.length,
+      accent: attachmentFindings.length > 0 ? 'text-purple-400' : 'text-slate-400'
+    },
+    { 
+      id: 'social', 
+      label: 'Social Engineering', 
+      icon: AlertTriangle,
+      count: (socialFindings.categories_flagged || []).length || null,
+      accent: (socialFindings.categories_flagged || []).length > 0 ? 'text-amber-400' : 'text-slate-400'
+    },
   ];
 
   return (
-    <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 backdrop-blur-md shadow-xl">
-      {/* Tab Header Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-5 pb-3 border-b border-slate-800/80">
-        <div className="flex items-center gap-1.5 overflow-x-auto">
+    <div className="glass-panel p-6 rounded-2xl border border-slate-800/90 shadow-2xl relative overflow-hidden">
+      {/* Decorative gradient top edge */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500/40 via-cyan-400/40 to-indigo-500/40" />
+
+      {/* Tab Navigation Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5 pb-3 border-b border-slate-800/80">
+        <div className="flex items-center gap-1.5 overflow-x-auto py-1">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
+            const TabIcon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
                   isActive
-                    ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-600/30'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                    ? 'bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/30 border border-blue-400/30'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent'
                 }`}
               >
+                <TabIcon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : tab.accent}`} />
                 <span>{tab.label}</span>
                 {tab.count !== null && (
                   <span
                     className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
                       isActive
                         ? 'bg-white/20 text-white'
-                        : 'bg-slate-800 text-slate-400 border border-slate-700/60'
+                        : 'bg-slate-800 text-slate-300 border border-slate-700/60'
                     }`}
                   >
                     {tab.count}
@@ -61,12 +222,79 @@ export default function ForensicInspector({
             );
           })}
         </div>
-        <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 hidden sm:inline-block">
-          Passive Forensic Mode
+        <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 hidden sm:inline-flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+          Zero-Interaction Sandbox
         </span>
       </div>
 
-      {/* Tab Content 1: Headers & Authentication */}
+      {/* TAB 0: INTERACTIVE IN-BODY XAI HIGHLIGHTER */}
+      {activeTab === 'xai_body' && (
+        <div className="space-y-4">
+          {/* Controls & Legend Bar */}
+          <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
+              <span className="text-slate-400 text-[11px] mr-1">Attribution Filters:</span>
+              <button
+                onClick={() => setShowPhishingHighlights(!showPhishingHighlights)}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border transition-all ${
+                  showPhishingHighlights
+                    ? 'bg-red-500/20 text-red-300 border-red-500/40 shadow-sm'
+                    : 'bg-slate-900 text-slate-500 border-slate-800 line-through'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-red-400" />
+                Phishing Triggers ({phishingTokens.length})
+              </button>
+
+              <button
+                onClick={() => setShowLegitHighlights(!showLegitHighlights)}
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono border transition-all ${
+                  showLegitHighlights
+                    ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm'
+                    : 'bg-slate-900 text-slate-500 border-slate-800 line-through'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                Benign Anchors ({legitTokens.length})
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => copyToClipboard(bodyText, setCopiedText)}
+                className="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono border border-slate-700 flex items-center gap-1.5 transition-colors"
+                title="Copy plain email body"
+              >
+                {copiedText ? (
+                  <>
+                    <Check className="w-3 h-3 text-emerald-400" />
+                    <span className="text-emerald-400">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-3 h-3 text-slate-400" />
+                    <span>Copy Body</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Interactive Inspection Workspace */}
+          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 font-mono text-xs overflow-x-auto max-h-[460px] overflow-y-auto relative scrollbar-thin">
+            {renderedContent}
+          </div>
+
+          {/* Forensic Micro-Footer */}
+          <div className="flex items-center justify-between text-[11px] text-slate-400 px-1 font-mono">
+            <span>Hover highlighted token for exact Shapley log-odds contribution values</span>
+            <span>Character Count: {bodyText.length}</span>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 1: HEADERS & AUTH */}
       {activeTab === 'headers' && (
         <div className="space-y-4">
           {/* Auth Protocol Matrix */}
@@ -166,7 +394,7 @@ export default function ForensicInspector({
         </div>
       )}
 
-      {/* Tab Content 2: Static URLs */}
+      {/* TAB 2: STATIC URLS */}
       {activeTab === 'urls' && (
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
@@ -232,7 +460,7 @@ export default function ForensicInspector({
         </div>
       )}
 
-      {/* Tab Content 3: Attachments */}
+      {/* TAB 3: ATTACHMENTS */}
       {activeTab === 'attachments' && (
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-1">
@@ -284,7 +512,7 @@ export default function ForensicInspector({
         </div>
       )}
 
-      {/* Tab Content 4: Social Engineering */}
+      {/* TAB 4: SOCIAL ENGINEERING */}
       {activeTab === 'social' && (
         <div className="space-y-3">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-1">

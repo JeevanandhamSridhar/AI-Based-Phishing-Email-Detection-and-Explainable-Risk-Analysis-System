@@ -13,6 +13,7 @@ class EmailMetadataSchema(BaseModel):
     to_header: str
     date: str
     sha256: str
+    body_text: Optional[str] = None
 
 
 class OverallRiskSchema(BaseModel):
