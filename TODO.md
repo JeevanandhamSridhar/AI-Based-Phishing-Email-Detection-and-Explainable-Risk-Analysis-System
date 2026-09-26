@@ -140,7 +140,7 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Add unit tests and API endpoints for adversarial metrics.
 
 ### Phase 16: Multi-Factor Hybrid Risk Engine
-- [ ] Implement `backend/app/services/risk_engine.py` applying weighted risk algorithm:
+- [x] Implement `backend/app/services/risk_engine.py` applying weighted risk algorithm:
   - ML Phishing Probability (weight: 30)
   - URL Static Risk (weight: 20)
   - Header & Authentication (weight: 15)
@@ -148,8 +148,8 @@ Status: **PHASE 1 IN PROGRESS**
   - Social-Engineering Signals (weight: 10)
   - Attachment Risk (weight: 10)
   - Content Anomalies (weight: 5)
-- [ ] Implement configurable weights via environment variables.
-- [ ] Add boundary tests for risk categories: 0, 24, 25, 49, 50, 74, 75, 100.
+- [x] Implement configurable weights via environment variables.
+- [x] Add boundary tests for risk categories: 0, 24, 25, 49, 50, 74, 75, 100.
 
 ### Phase 17: Forensic Evidence Engine & Comprehensive REST API
 - [ ] Implement `backend/app/api/endpoints/analyze.py` for full email analysis.
