@@ -74,13 +74,13 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests for typosquatting and homoglyph detection.
 
 ### Phase 8: Social-Engineering Rule-Based Analyzer
-- [ ] Implement `backend/app/analyzers/social_engineering_analyzer.py`.
-- [ ] Identify urgency markers ("account suspended", "immediate action required", "within 24 hours").
-- [ ] Identify fear / threat appeals ("law enforcement", "penalty", "permanent deletion").
-- [ ] Identify credential harvesting prompts ("verify identity", "confirm password", "update billing").
-- [ ] Identify financial bait ("lottery", "unclaimed funds", "wire transfer refund").
-- [ ] Produce structured evidence triggers with score attribution (0–100).
-- [ ] Write unit tests for linguistic trigger patterns.
+- [x] Implement `backend/app/analyzers/social_engineering_analyzer.py`.
+- [x] Identify urgency markers ("account suspended", "immediate action required", "within 24 hours").
+- [x] Identify fear / threat appeals ("law enforcement", "penalty", "permanent deletion").
+- [x] Identify credential harvesting prompts ("verify identity", "confirm password", "update billing").
+- [x] Identify financial bait ("lottery", "unclaimed funds", "wire transfer refund").
+- [x] Produce structured evidence triggers with score attribution (0–100).
+- [x] Write unit tests for linguistic trigger patterns.
 
 ### Phase 9: Static Attachment Metadata Analyzer
 - [ ] Implement `backend/app/analyzers/attachment_analyzer.py`.
