@@ -1,0 +1,452 @@
+[
+  {
+    "id": "gen_c_000",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://portal-auth.top/gate prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_001",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://verify-sso.xyz/login to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_002",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_003",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_004",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://portal-auth.top/gate to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_005",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://cloud-auth.work/verify to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_006",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_007",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_008",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://cloud-auth.work/verify immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_009",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_010",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_011",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://security-update.buzz/auth prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_012",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_013",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_014",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_015",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://security-update.buzz/auth prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_016",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://security-update.buzz/auth to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_017",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://portal-auth.top/gate to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_018",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://portal-auth.top/gate prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_019",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_020",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://verify-sso.xyz/login prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_021",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://cloud-auth.work/verify immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_022",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_023",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://verify-sso.xyz/login immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_024",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_025",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://verify-sso.xyz/login immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_026",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://cloud-auth.work/verify immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_027",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_028",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_029",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_030",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_031",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_032",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://verify-sso.xyz/login immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_033",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_034",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_035",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_036",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://cloud-auth.work/verify to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_037",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://verify-sso.xyz/login to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_038",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_039",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_040",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_041",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_042",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_043",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://security-update.buzz/auth to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_044",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_045",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_046",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://cloud-auth.work/verify to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_047",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://verify-sso.xyz/login to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_048",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://portal-auth.top/gate to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_049",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://verify-sso.xyz/login to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_050",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://portal-auth.top/gate to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_051",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://verify-sso.xyz/login prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_052",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://portal-auth.top/gate prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_053",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://cloud-auth.work/verify prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_054",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://portal-auth.top/gate to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_055",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_056",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://portal-auth.top/gate to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_057",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://portal-auth.top/gate to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_058",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://verify-sso.xyz/login to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_059",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_060",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://cloud-auth.work/verify immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_061",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://verify-sso.xyz/login prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_062",
+    "text": "Compliance notification: Standard quarterly audit requires verification of your department billing contact information. Submit updated details via http://verify-sso.xyz/login prior to the upcoming invoice cycle.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_063",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://verify-sso.xyz/login to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_064",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_065",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_066",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://security-update.buzz/auth to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_067",
+    "text": "System notice: Your multi-factor authentication token is set to expire today. Please navigate to the security interface at http://cloud-auth.work/verify to synchronize your hardware key. Unverified accounts will lose remote access privileges at 23:59 UTC.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_068",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://verify-sso.xyz/login immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_069",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://security-update.buzz/auth immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_070",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_071",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://portal-auth.top/gate immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_072",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://cloud-auth.work/verify to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_073",
+    "text": "Network security bulletin: Routine perimeter monitoring detected irregular API requests linked to your user token. Re-issue your access credentials through http://cloud-auth.work/verify immediately.",
+    "label": 1,
+    "generator": "generator_c"
+  },
+  {
+    "id": "gen_c_074",
+    "text": "Account service update: Your recent cloud resource reservation request requires manual verification. Access the provisioning console at http://security-update.buzz/auth to confirm deployment parameters.",
+    "label": 1,
+    "generator": "generator_c"
+  }
+]

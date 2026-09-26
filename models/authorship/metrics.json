@@ -1,0 +1,46 @@
+{
+  "timestamp": "2026-09-26T17:58:40.988013+00:00",
+  "random_seed": 42,
+  "in_generator_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "roc_auc": 1.0
+  },
+  "cross_generator_metrics": {
+    "held_out_generator": "Generator_C (Llama/Mistral-style)",
+    "accuracy": 0.88,
+    "precision": 1.0,
+    "recall": 0.76,
+    "f1_score": 0.8636,
+    "roc_auc": 1.0,
+    "performance_drop_delta_f1": 0.1364
+  },
+  "top_stylometric_features": [
+    {
+      "feature": "flesch_reading_ease",
+      "importance": 0.2277
+    },
+    {
+      "feature": "avg_characters_per_sentence",
+      "importance": 0.1715
+    },
+    {
+      "feature": "lexical_density",
+      "importance": 0.1576
+    },
+    {
+      "feature": "flesch_kincaid_grade",
+      "importance": 0.1318
+    },
+    {
+      "feature": "avg_word_length",
+      "importance": 0.093
+    },
+    {
+      "feature": "avg_sentence_length",
+      "importance": 0.0919
+    }
+  ]
+}

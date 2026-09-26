@@ -117,18 +117,18 @@ Status: **PHASE 1 IN PROGRESS**
 - [x] Write unit tests for explanation generation and fallback handlers.
 
 ### Phase 14: Module A — AI-Generated Phishing Indicator
-- [ ] Implement `backend/app/authorship/stylometry.py` extracting linguistic and stylometric features:
+- [x] Implement `backend/app/authorship/stylometry.py` extracting linguistic and stylometric features:
   - Lexical diversity (Type-Token Ratio, Hapax Legomena ratio)
   - Sentence length mean and variance
   - Punctuation density and exclamation ratios
   - Function word distribution
   - Flesch Reading Ease score
   - Capitalization patterns
-- [ ] Curate human phishing samples vs. LLM phishing samples across multiple generators (LLM A, B, C) in `data/llm_generated_samples/`.
-- [ ] Train authorship classifier in `scripts/train_authorship_classifier.py`.
-- [ ] Run both in-generator evaluation and cross-generator evaluation.
-- [ ] Record results honestly in `docs/ai-authorship-eval.md`, explicitly reporting any performance drop.
-- [ ] Implement API endpoint and unit tests.
+- [x] Curate human phishing samples vs. LLM phishing samples across multiple generators (LLM A, B, C) in `data/llm_generated_samples/`.
+- [x] Train authorship classifier in `scripts/train_authorship_classifier.py`.
+- [x] Run both in-generator evaluation and cross-generator evaluation.
+- [x] Record results honestly in `docs/ai-authorship-eval.md`, explicitly reporting any performance drop.
+- [x] Implement API endpoint and unit tests.
 
 ### Phase 15: Module B — Explanation-Guided Adversarial Self-Evaluation
 - [ ] Implement `backend/app/adversarial/adversarial_evaluator.py`.
